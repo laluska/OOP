@@ -1,58 +1,53 @@
 #include <iostream>
-#include <algorithm>
-#include <cstddef>
 using namespace std;
-int funkcija(int niz){
-    int parni[50]=[];
-    int neparni[50]=[];
-    for(int i =0;i<strlen;)
-    
+
+auto parnost = [](int a){ return a % 2 == 0; };
+auto udvostruci = [](int a){ return a * 2; };
+auto prepolovi = [](int a){ return a / 2; };
+
+void obradiNiz(int niz[], int velicina) {
+    for(int i = 0; i < velicina; i++) {
+        if(parnost(niz[i])) {
+            niz[i] = prepolovi(niz[i]);
+        } else {
+            niz[i] = udvostruci(niz[i]);
+        }
+    }
+}
+
+void sumaIProdukt(int niz[], int velicina, int &suma, int &produkt) {
+    auto dodavanje = [&](int a){ return suma += a; };
+    auto dodavanje2 = [&](int a){ return produkt *= a; };
+    for(int i = 0; i < velicina; i++) {
+        dodavanje(niz[i]);
+        dodavanje2(niz[i]);
+    }
+}
+
+void sumaVecihOdPraga(int niz[], int velicina, int prag, int &suma) {
+    auto dodavanje3 = [prag, &suma](int a){
+        if(a > prag) suma += a;
+    };
+    for(int i = 0; i < velicina; i++) {
+        dodavanje3(niz[i]);
+    }
 }
 
 int main() {
-    int suma = 15;
-    int produkt = 5;
+    int niz[6] = {1,2,3,4,5,6};
+    int suma = 0;
+    int produkt = 1;
     int prag = 13;
-    int niz[]={1,2,3,4,5,6};
 
-    auto parnost = [](int a) {
-        if (a % 2 == 0) return true;
-        return false;
-    };
+    obradiNiz(niz, 6);
+    sumaIProdukt(niz, 6, suma, produkt);
+    sumaVecihOdPraga(niz, 6, prag, suma);
 
-    auto udvostruci = [](int a) {
-        return a * 2;
-    };
-
-    auto prepolovi = [](int a) {
-        return a / 2;
-    };
-
-    auto dodavanje = [&](int a) {
-        return suma += a;
-    };
-
-    auto dodavanje2 = [&](int a) {
-        return produkt *= a;
-    };
-
-    auto dodavanje3 = [prag, &suma](int a) {
-        if (a > prag) {
-            suma += a;
-        } else {
-            cout << "Broj nije veci od praga" << endl;
-        }
-    };
-
-
-    cout << "Paran? " << parnost(6) << endl;
-    cout << "Udvostruceni: " << udvostruci(3) << endl;
-    cout << "Prepolovljeni: " << prepolovi(6) << endl;
-    cout << "Dodavanje: " << dodavanje(3) << endl;
-    cout << "Dodavanje na produkt: " << dodavanje2(3) << endl;
-    
-    dodavanje3(14);
-    cout << "Nova suma nakon dodavanja3: " << suma << endl;
+    cout << "Niz nakon obrade: ";
+    for(int i = 0; i < 6; i++) cout << niz[i] << " ";
+    cout << endl;
+    cout << "Suma svih elemenata: " << suma << endl;
+    cout << "Produkt svih elemenata: " << produkt << endl;
 
     return 0;
 }
