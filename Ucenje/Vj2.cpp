@@ -6,12 +6,6 @@
 //Napišite funckiju koja za jedan znak i za rečenicu vraća vektor svih pozicija znaka u
 //rečenici.
 using namespace std;
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-using namespace std;
-
 void funkcija(string& s) {
     vector<int> novi;
     char a = 'k';
