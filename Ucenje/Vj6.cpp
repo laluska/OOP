@@ -10,7 +10,7 @@ string funkcija(const string& s) {
     for (char c : s) {
         if (isupper(c)) {
             inicijali.push_back(c);
-            inicijali.push_back('.'); // dodaj tačku iza svakog inicijala
+            inicijali.push_back('.'); 
         }
     }
 
